@@ -1,5 +1,5 @@
 import { Form, Card, Button, Container } from "react-bootstrap";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function PolishCalc(){
@@ -8,6 +8,10 @@ const [num, setNum] = useState("");
 const [operatorArray, setOperator] = useState([]);
 const [operandArray, setOperand] = useState([]);
 const error = document.getElementById("error");
+
+useEffect(()=>{
+    setNum("")
+},[])
 
 
     const changeHandler = e =>{
@@ -65,12 +69,10 @@ const error = document.getElementById("error");
     const compute = () =>{
         
        const lenghtArrayDiff = operatorArray.length - operandArray.length;
-       // Error messaging based on difference in lenght values of operators and operands
        
-
-       if(num === ""){
-           error.style.visibility = "visible";
-           error.innerHTML = "You did not enter anything!"
+       if(!num){
+           document.getElementById("error").style.visibility = "visible";
+           document.getElementById("error").innerHTML = "You did not enter anything!"
        }else if(lenghtArrayDiff > 1){
             error.style.visibility = "visible";
             error.innerHTML = "Something went wrong! Check the number of OPERANDS!"
@@ -141,8 +143,8 @@ const error = document.getElementById("error");
                 
                 <Card.Body>
 
-                    <Form style={{height:"40%"}} onChange={((e)=> e.preventDefault())}>
-                        <Form.Control value={num} placeholder="Enter the operand and operator: 2,6,5.5,4,*,-,+" style={{width:"60%", display:"inline-flex", color:"grey"}} onChange={changeHandler}></Form.Control>
+                    <Form style={{height:"40%"}}>
+                        <Form.Control value={num} placeholder="Enter the operand and operator: 2,6,5.5,4,*,-,+" style={{width:"60%", display:"inline-flex"}} onChange={changeHandler}></Form.Control>
                         <Button variant="outline-info" style={{display:"inline-flex", marginLeft:"3%"}} onClick={clear}>Clear</Button>
                         <Button variant="outline-info" style={{display:"inline-flex",marginLeft:"1%"}} onClick={compute}>Compute</Button>
                     </Form>
