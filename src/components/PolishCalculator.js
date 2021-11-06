@@ -7,24 +7,32 @@ function PolishCalc(){
 const [num, setNum] = useState("");
 const [operatorArray, setOperator] = useState([]);
 const [operandArray, setOperand] = useState([]);
+const error = document.getElementById("error");
 
 
     const changeHandler = e =>{
- 
+    
+
     let value = e.target.value;
     let cleanedValue =  value.substr(-1);
     setNum(e.target.value);
     let arr = [];
     let operator = [];
     let operand = [];
+
+
+    
     
             if(cleanedValue.match(/[0-9]/) || cleanedValue.match(/[+-/*=]/)){
                 cleanedValue = value.substr(value.lenght - 1);
             }else{
-                setNum(num.substr(0, num.length));
-                return alert("Only operators 1-9 and operands +,-,*,/ are allowed")         
+                setNum(num.substr(0, num.length)); 
+                document.getElementById("error").style.visibility="visible";
+                document.getElementById("error").innerHTML = "Only numbers and arithmetic operators are valid!" 
+                return; 
+                    
             }
-
+            document.getElementById("error").style.visibility="hidden";
             arr = cleanedValue.split(",")
     
             arr.forEach(element => {
@@ -56,11 +64,21 @@ const [operandArray, setOperand] = useState([]);
 
     const compute = () =>{
         
-       //const lenghtArrayDiff = operatorArray.length - operandArray.length;
-
-       
+       const lenghtArrayDiff = operatorArray.length - operandArray.length;
        // Error messaging based on difference in lenght values of operators and operands
-       let result = ""
+       
+
+       if(num === ""){
+           error.style.visibility = "visible";
+           error.innerHTML = "You did not enter anything!"
+       }else if(lenghtArrayDiff > 1){
+            error.style.visibility = "visible";
+            error.innerHTML = "Something went wrong! Check the number of OPERANDS!"
+       }else if(lenghtArrayDiff < 1){
+            error.style.visibility = "visible";
+            error.innerHTML = "Something went wrong! Check the number of OPERATORS!"
+       }else{
+        let result = ""
         for(let i=0;i<=operatorArray.length-1;i++){
             for(let j=0;j<=operandArray.length-1;j++){
                 switch(operandArray[0]){
@@ -106,8 +124,12 @@ const [operandArray, setOperand] = useState([]);
                 }
             }
         }
-        console.log("num is:", operatorArray);
+        setNum(`${num} = ${operatorArray[0]}`)
     }
+}
+
+
+       
     const clear = () =>{
         window.location.reload();
     }
@@ -120,13 +142,13 @@ const [operandArray, setOperand] = useState([]);
                 <Card.Body>
 
                     <Form style={{height:"40%"}} onChange={((e)=> e.preventDefault())}>
-                        <Form.Control value={num} placeholder="Enter the operand and operator: 2,6,5.5,4,*,-,+" style={{width:"60%", display:"inline-flex"}} onChange={changeHandler}></Form.Control>
+                        <Form.Control value={num} placeholder="Enter the operand and operator: 2,6,5.5,4,*,-,+" style={{width:"60%", display:"inline-flex", color:"grey"}} onChange={changeHandler}></Form.Control>
                         <Button variant="outline-info" style={{display:"inline-flex", marginLeft:"3%"}} onClick={clear}>Clear</Button>
                         <Button variant="outline-info" style={{display:"inline-flex",marginLeft:"1%"}} onClick={compute}>Compute</Button>
                     </Form>
                     
                 </Card.Body>
-                <h3 style={{color:"red", visibility:"hidden"}}></h3>
+                <p id="error" style={{color:"red", visibility:"hidden"}}></p>
             </Card>
         </Container>
     )
