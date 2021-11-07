@@ -15,7 +15,6 @@ useEffect(()=>{
 
     const changeHandler = e =>{
     
-
     let value = e.target.value;
     let cleanedValue =  value.substr(-1);
     setNum(e.target.value);
@@ -24,9 +23,6 @@ useEffect(()=>{
     let operand = [];
 
    
-
-    
-    
             if(cleanedValue.match(/[0-9]/) || cleanedValue.match(/[+-/*=]/)){
                 cleanedValue = value.substr(value.lenght - 1);
             }else{
