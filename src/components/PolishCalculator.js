@@ -2,7 +2,7 @@ import { Form, Card, Button, Container } from "react-bootstrap";
 import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function PolishCalc(){
+function Calc(){
 
 const [num, setNum] = useState("");
 const [operatorArray, setOperator] = useState([]);
@@ -156,4 +156,4 @@ useEffect(()=>{
     )
 }
 
-export default PolishCalc;
+export default Calc;

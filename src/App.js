@@ -1,9 +1,9 @@
-import PolishCalc from './components/PolishCalculator';
+import Calc from './components/PolishCalculator';
 
 
 function App() {
   return (
-   <PolishCalc />
+   <Calc />
   );
 }
 
