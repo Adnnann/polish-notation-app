@@ -13,6 +13,11 @@ useEffect(()=>{
     setNum("")
 },[])
 
+// document.getElementById("input").onkeydown((event) =>{
+//     const key = event.keyCode || event.charCode;
+//     key === 8 
+
+// })
 
     const changeHandler = e =>{
     
@@ -24,17 +29,22 @@ useEffect(()=>{
     let operator = [];
     let operand = [];
 
+   
 
     
     
             if(cleanedValue.match(/[0-9]/) || cleanedValue.match(/[+-/*=]/)){
                 cleanedValue = value.substr(value.lenght - 1);
             }else{
-                setNum(num.substr(0, num.length)); 
-                document.getElementById("error").style.visibility="visible";
-                document.getElementById("error").innerHTML = "Only numbers and arithmetic operators are valid!" 
-                return; 
+                if(num.length === 1){
+                    return setNum(num.substr(0, num.length-1)); 
+                }else if(num.substr(-1).match([/[0-9]/]) || num.substr(-1).match(/[+-/*=]/)){
+                    setNum(num.substr(0, num.length));
+                    document.getElementById("error").style.visibility="visible";
+                    document.getElementById("error").innerHTML = "Only numbers and arithmetic operators are valid!"
+                    return;
                     
+                }
             }
             document.getElementById("error").style.visibility="hidden";
             arr = cleanedValue.split(",")
@@ -138,15 +148,15 @@ useEffect(()=>{
 
     return(
         <Container>
-            <Card className="text-center" style={{width:"60%",margin:"auto",marginTop:"5%"}}>
+            <Card className="text-center" style={{width:"80%",margin:"auto",marginTop:"5%"}}>
                 <Card.Header style={{height:"25%",fontStyle:"bold", fontSize:"100%"}}><h2>Reverse Polish Notation Calculator</h2></Card.Header>
                 
-                <Card.Body>
+                <Card.Body style={{marginLeft:"1%"}}>
 
                     <Form style={{height:"40%"}}>
-                        <Form.Control value={num} placeholder="Enter the operand and operator: 2,6,5.5,4,*,-,+" style={{width:"60%", display:"inline-flex"}} onChange={changeHandler}></Form.Control>
-                        <Button variant="outline-info" style={{display:"inline-flex", marginLeft:"3%"}} onClick={clear}>Clear</Button>
-                        <Button variant="outline-info" style={{display:"inline-flex",marginLeft:"1%"}} onClick={compute}>Compute</Button>
+                        <Form.Control id="input" value={num} placeholder="Enter the operand and operator: 2,6,5.5,4,*,-,+" style={{width:"62%", display:"inline-flex",marginLeft:"1%", fontSize:"60%"}} onChange={changeHandler}></Form.Control>
+                        <Button variant="outline-info" style={{display:"inline-flex", marginLeft:"2%",fontSize:"55%"}} onClick={clear}>Clear</Button>
+                        <Button variant="outline-info" style={{display:"inline-flex",marginLeft:"1%",fontSize:"55%"}} onClick={compute}>Compute</Button>
                     </Form>
                     
                 </Card.Body>
