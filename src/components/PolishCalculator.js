@@ -13,12 +13,6 @@ useEffect(()=>{
     setNum("")
 },[])
 
-// document.getElementById("input").onkeydown((event) =>{
-//     const key = event.keyCode || event.charCode;
-//     key === 8 
-
-// })
-
     const changeHandler = e =>{
     
 
