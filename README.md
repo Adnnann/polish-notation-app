@@ -21,3 +21,7 @@ App is composed of only one component PolishCalculator with user form and messag
 ## Dependencies
 
 There are no dependencies that need to be installed
+
+## Try on Sandbox
+
+https://codesandbox.io/s/flamboyant-hodgkin-vdug0t
